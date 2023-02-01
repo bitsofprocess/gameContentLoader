@@ -1,0 +1,20 @@
+{
+  "name": "gamecontentloader",
+  "version": "1.0.0",
+  "description": "script to validate, format, and  upload game content from csv to aws dynamo",
+  "main": "load.js",
+  "scripts": {
+    "test": "mocha || true",
+    "proctest": "mocha ./modules/test/processingTest"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "chai": "^4.3.7",
+    "chai-json": "^1.0.0",
+    "mocha": "^10.2.0"
+  },
+  "dependencies": {
+    "lodash": "^4.17.21"
+  }
+}
