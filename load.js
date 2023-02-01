@@ -1,7 +1,5 @@
 "use strict";
 
-const test = require("./modules/test/processingTest");
-
 //imports
 const { csvToJson } = require("./modules/processing");
 const { extractFormattedJson } = require("./modules/processing");
@@ -58,9 +56,13 @@ const load = async () => {
     if (!passedValueCheck) {
       console.log(
         `VALIDATION FAILED! \n \n -- ELEMENTS WITH MISSING KEYS -- ${JSON.stringify(
-          elementsWithMissingKeys
+          elementsWithMissingKeys,
+          null,
+          4
         )}\n \n-- ELEMENTS WITH MISSING VALUES-- ${JSON.stringify(
-          elementsWithMissingValues
+          elementsWithMissingValues,
+          null,
+          4
         )}`
       );
     } else {
@@ -69,18 +71,25 @@ const load = async () => {
         JsonArray,
         allowedKeys
       );
-      console.log('trimmedObjectArray: ', trimmedObjectArray);
+      console.log("trimmedObjectArray: ", trimmedObjectArray);
 
       // get existing records
       const existingRecords = await getDynamoTableRecords(tableName, dynamodb);
       // console.log('existingRecords: ', existingRecords)
 
       // // compare csv content to existing records
-      const itemsToProcess = await getItemsToProcess(trimmedObjectArray, existingRecords);
+      const itemsToProcess = await getItemsToProcess(
+        trimmedObjectArray,
+        existingRecords
+      );
       // console.log(itemsToProcess);
 
       // batchWrite to dynamo
-      const DynamoTableResponse = await updateDynamoDb(itemsToProcess, tableName, dynamodb);
+      const DynamoTableResponse = await updateDynamoDb(
+        itemsToProcess,
+        tableName,
+        dynamodb
+      );
     }
   } catch (err) {
     console.error(err);
@@ -88,4 +97,4 @@ const load = async () => {
   }
 };
 
-
+load();
